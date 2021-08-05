@@ -7,6 +7,7 @@ import java.util.Optional;
 import javax.validation.Valid;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.annotation.Cacheable;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
@@ -44,6 +45,7 @@ public class TopicsController {
 	private CourseRepository courseRepository;
 
 	@GetMapping
+	@Cacheable(value = "topicsList")
 	public Page<TopicDto> list(@RequestParam(required = false) String courseName, @PageableDefault(sort = "id", direction = Direction.ASC, page = 0, size = 10) Pageable pagination) {
 		if (courseName == null) {
 			Page<Topic> topics = topicRepository.findAll(pagination);			
