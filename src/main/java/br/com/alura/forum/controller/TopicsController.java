@@ -1,13 +1,16 @@
 package br.com.alura.forum.controller;
 
+import java.net.URI;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.util.UriComponentsBuilder;
 
 import br.com.alura.forum.controller.dto.TopicDto;
 import br.com.alura.forum.controller.form.TopicForm;
@@ -37,9 +40,12 @@ public class TopicsController {
 	}
 	
 	@PostMapping
-	public void register(@RequestBody TopicForm form) {
+	public ResponseEntity<TopicDto> register(@RequestBody TopicForm form, UriComponentsBuilder uriBuilder) {
 		Topic topic = form.convert(courseRepository);
 		topicRepository.save(topic);
+		
+		URI uri = uriBuilder.path("/topics/{id}").buildAndExpand(topic.getId()).toUri();
+		return ResponseEntity.created(uri).body(new TopicDto(topic));
 	}
 	
 }
