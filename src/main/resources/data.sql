@@ -1,4 +1,11 @@
 INSERT INTO USER(name, email, password) VALUES('Student', 'student@email.com', '$2a$10$Uv1Z6jFD1NoqkgSDjxVHFOj3cyVpSaBMyMuPBjNVGSl/prcxLCMrK');
+INSERT INTO USER(name, email, password) VALUES('Moderator', 'moderator@email.com', '$2a$10$Uv1Z6jFD1NoqkgSDjxVHFOj3cyVpSaBMyMuPBjNVGSl/prcxLCMrK');
+
+INSERT INTO PROFILE(id, name) VALUES(1, 'ROLE_STUDENT');
+INSERT INTO PROFILE(id, name) VALUES(2, 'ROLE_MODERATOR');
+
+INSERT INTO USER_PROFILES(user_id, profiles_id) VALUES(1, 1);
+INSERT INTO USER_PROFILES(user_id, profiles_id) VALUES(2, 2);
 
 INSERT INTO COURSE(name, category) VALUES('Spring Boot', 'Programming');
 INSERT INTO COURSE(name, category) VALUES('HTML 5', 'Front-end');
